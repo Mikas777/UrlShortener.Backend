@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+using UrlShortener.Infrastructure;
 using UrlShortener.Infrastructure.Repositories;
 using UrlShortener.Infrastructure.Repositories.Interfaces;
+using UrlShortener.Web.Services;
+using UrlShortener.Web.Services.Interfaces;
 
-namespace UrlShortener.Infrastructure.Extensions;
+namespace UrlShortener.Web.Extensions;
 
 public static class ServiceCollectionExtensions
 {
@@ -31,5 +32,10 @@ public static class ServiceCollectionExtensions
     public static void AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<IUserRepository, UserRepository>();
+    }
+
+    public static void AddServices(this IServiceCollection services)
+    {
+        services.AddScoped<IUserService, UserService>();
     }
 }

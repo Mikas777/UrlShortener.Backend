@@ -16,8 +16,8 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        const string ADMIN_ROLE_ID = "3BE5C12B-ADB4-49F1-A10D-BDF648BCB40C";
-        const string USER_ROLE_ID = "C10079DB-6A58-41D4-B1FC-B6CE4C7D860F";
+        const string adminRoleId = "3BE5C12B-ADB4-49F1-A10D-BDF648BCB40C";
+        const string userRoleId = "C10079DB-6A58-41D4-B1FC-B6CE4C7D860F";
 
         modelBuilder.HasPostgresExtension("uuid-ossp");
 
@@ -27,6 +27,8 @@ public class ApplicationDbContext : DbContext
             entity.Property(e => e.Id)
                 .HasColumnName("Id")
                 .HasDefaultValueSql("uuid_generate_v4()");
+
+            entity.HasIndex(u => u.NormalizedUsername).IsUnique();
         });
 
         modelBuilder.Entity<RoleDAO>(entity =>
@@ -39,12 +41,12 @@ public class ApplicationDbContext : DbContext
             entity.HasData(
                 new RoleDAO
                 {
-                    Id = Guid.Parse(ADMIN_ROLE_ID),
+                    Id = Guid.Parse(adminRoleId),
                     Name = nameof(Role.Admin)
                 },
                 new RoleDAO
                 {
-                    Id = Guid.Parse(USER_ROLE_ID),
+                    Id = Guid.Parse(userRoleId),
                     Name = nameof(Role.User)
                 }
             );

@@ -1,7 +1,4 @@
-using Microsoft.EntityFrameworkCore;
 using Serilog;
-using UrlShortener.Infrastructure;
-using UrlShortener.Infrastructure.Extensions;
 using UrlShortener.Web.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
