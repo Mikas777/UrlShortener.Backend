@@ -43,6 +43,27 @@ namespace UrlShortener.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Urls",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    OriginalUrl = table.Column<string>(type: "text", nullable: false),
+                    ShortCode = table.Column<string>(type: "text", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedById = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Urls", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Urls_Users_CreatedById",
+                        column: x => x.CreatedById,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserRoles",
                 columns: table => new
                 {
@@ -78,12 +99,46 @@ namespace UrlShortener.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "NormalizedUsername", "PasswordHash", "Username" },
-                values: new object[] { new Guid("1bf365a0-3e82-4de8-bea3-f644a541ebc0"), "ADMIN", "admin", "admin" });
+                values: new object[,]
+                {
+                    { new Guid("1bf365a0-3e82-4de8-bea3-f644a541ebc0"), "ADMIN", "admin", "admin" },
+                    { new Guid("7d5f1e2c-8f4c-4c3a-9d6a-2e8f4b5c9a1b"), "USER", "user", "user" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Urls",
+                columns: new[] { "Id", "CreatedById", "CreatedDate", "OriginalUrl", "ShortCode" },
+                values: new object[,]
+                {
+                    { new Guid("814298ac-bc7e-41d4-98b7-0e21db0ae10a"), new Guid("1bf365a0-3e82-4de8-bea3-f644a541ebc0"), new DateTime(2025, 10, 19, 20, 50, 31, 486, DateTimeKind.Utc).AddTicks(4440), "https://localhost:7111/Login", "aDGV9IW" },
+                    { new Guid("9aa94be8-cbd6-49ba-831f-061131678d81"), new Guid("7d5f1e2c-8f4c-4c3a-9d6a-2e8f4b5c9a1b"), new DateTime(2025, 10, 19, 20, 50, 31, 486, DateTimeKind.Utc).AddTicks(4440), "http://localhost:5173/user-created", "RZO1LGP" },
+                    { new Guid("fdbf0efa-3a81-46ad-a1fd-827ed6183ac2"), new Guid("1bf365a0-3e82-4de8-bea3-f644a541ebc0"), new DateTime(2025, 10, 19, 20, 50, 31, 486, DateTimeKind.Utc).AddTicks(4440), "http://localhost:5173/admin-created", "37f2Fmo" }
+                });
 
             migrationBuilder.InsertData(
                 table: "UserRoles",
                 columns: new[] { "RolesId", "UsersId" },
-                values: new object[] { new Guid("3be5c12b-adb4-49f1-a10d-bdf648bcb40c"), new Guid("1bf365a0-3e82-4de8-bea3-f644a541ebc0") });
+                values: new object[,]
+                {
+                    { new Guid("3be5c12b-adb4-49f1-a10d-bdf648bcb40c"), new Guid("1bf365a0-3e82-4de8-bea3-f644a541ebc0") },
+                    { new Guid("c10079db-6a58-41d4-b1fc-b6ce4c7d860f"), new Guid("7d5f1e2c-8f4c-4c3a-9d6a-2e8f4b5c9a1b") }
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Urls_CreatedById",
+                table: "Urls",
+                column: "CreatedById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Urls_OriginalUrl",
+                table: "Urls",
+                column: "OriginalUrl");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Urls_ShortCode",
+                table: "Urls",
+                column: "ShortCode",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserRoles_UsersId",
@@ -100,6 +155,9 @@ namespace UrlShortener.Infrastructure.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Urls");
+
             migrationBuilder.DropTable(
                 name: "UserRoles");
 

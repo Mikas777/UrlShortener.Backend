@@ -82,6 +82,32 @@ namespace UrlShortener.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("Urls", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("814298ac-bc7e-41d4-98b7-0e21db0ae10a"),
+                            CreatedById = new Guid("1bf365a0-3e82-4de8-bea3-f644a541ebc0"),
+                            CreatedDate = new DateTime(2025, 10, 19, 20, 50, 31, 486, DateTimeKind.Utc).AddTicks(4440),
+                            OriginalUrl = "https://localhost:7111/Login",
+                            ShortCode = "aDGV9IW"
+                        },
+                        new
+                        {
+                            Id = new Guid("9aa94be8-cbd6-49ba-831f-061131678d81"),
+                            CreatedById = new Guid("7d5f1e2c-8f4c-4c3a-9d6a-2e8f4b5c9a1b"),
+                            CreatedDate = new DateTime(2025, 10, 19, 20, 50, 31, 486, DateTimeKind.Utc).AddTicks(4440),
+                            OriginalUrl = "http://localhost:5173/user-created",
+                            ShortCode = "RZO1LGP"
+                        },
+                        new
+                        {
+                            Id = new Guid("fdbf0efa-3a81-46ad-a1fd-827ed6183ac2"),
+                            CreatedById = new Guid("1bf365a0-3e82-4de8-bea3-f644a541ebc0"),
+                            CreatedDate = new DateTime(2025, 10, 19, 20, 50, 31, 486, DateTimeKind.Utc).AddTicks(4440),
+                            OriginalUrl = "http://localhost:5173/admin-created",
+                            ShortCode = "37f2Fmo"
+                        });
                 });
 
             modelBuilder.Entity("UrlShortener.Infrastructure.DAOs.UserDAO", b =>
@@ -118,6 +144,13 @@ namespace UrlShortener.Infrastructure.Migrations
                             NormalizedUsername = "ADMIN",
                             PasswordHash = "admin",
                             Username = "admin"
+                        },
+                        new
+                        {
+                            Id = new Guid("7d5f1e2c-8f4c-4c3a-9d6a-2e8f4b5c9a1b"),
+                            NormalizedUsername = "USER",
+                            PasswordHash = "user",
+                            Username = "user"
                         });
                 });
 
@@ -140,6 +173,11 @@ namespace UrlShortener.Infrastructure.Migrations
                         {
                             RolesId = new Guid("3be5c12b-adb4-49f1-a10d-bdf648bcb40c"),
                             UsersId = new Guid("1bf365a0-3e82-4de8-bea3-f644a541ebc0")
+                        },
+                        new
+                        {
+                            RolesId = new Guid("c10079db-6a58-41d4-b1fc-b6ce4c7d860f"),
+                            UsersId = new Guid("7d5f1e2c-8f4c-4c3a-9d6a-2e8f4b5c9a1b")
                         });
                 });
 
