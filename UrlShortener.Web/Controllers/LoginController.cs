@@ -38,7 +38,7 @@ public class LoginController(
 
         try
         {
-            var user = await userService.ValidateCredentialsAsync(model.Username, model.Password);
+            var user = await userService.ValidateCredentials(model.Username, model.Password);
 
             if (user == null)
             {

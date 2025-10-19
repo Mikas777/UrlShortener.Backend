@@ -7,32 +7,36 @@
 <h2>@ViewData["Title"]</h2>
 
 <div class="row">
-    <div class="col-md-4">
-        <section>
-            <form asp-action="Index" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
-                <h4>Welcome!</h4>
-                <hr />
+        <div class="col-md-4">
+            <section>
+                <form asp-action="Index" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+                    <h4>Welcome!</h4>
+                    <hr/>
 
-                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                    <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
 
-                <div classs="form-floating mb-3">
-                    <label asp-for="Username" class="form-label"></label>
-                    <input asp-for="Username" class="form-control" autocomplete="username" aria-required="true" />
-                    <span asp-validation-for="Username" class="text-danger"></span>
-                </div>
+                    <div>
+                        <label asp-for="Username" class="form-label"></label>
+                        <div classs="form-floating mb-3">
+                            <input asp-for="Username" class="form-control" autocomplete="username" aria-required="true"/>
+                            <span asp-validation-for="Username" class="text-danger"></span>
+                        </div>
+                    </div>
 
-                <div class="form-floating mb-3">
-                    <label asp-for="Password" class="form-label"></label>
-                    <input asp-for="Password" class="form-control" autocomplete="current-password" aria-required="true" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
+                    <div class="mt-2">
+                        <label asp-for="Password" class="form-label"></label>
+                        <div class="form-floating mb-3">
+                            <input asp-for="Password" class="form-control" autocomplete="current-password" aria-required="true"/>
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                    </div>
 
-                <div>
-                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
-                </div>
-            </form>
-        </section>
-    </div>
+                    <div>
+                        <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                    </div>
+                </form>
+            </section>
+        </div>
 </div>
 
 

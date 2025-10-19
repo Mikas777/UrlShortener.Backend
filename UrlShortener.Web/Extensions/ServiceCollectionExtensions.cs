@@ -15,6 +15,7 @@ public static class ServiceCollectionExtensions
 
         services.AddDatabaseContext(defaultConnection);
         services.AddRepositories();
+        services.AddServices();
 
         return services;
     }
@@ -32,10 +33,12 @@ public static class ServiceCollectionExtensions
     public static void AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IUrlRepository, UrlRepository>();
     }
 
     public static void AddServices(this IServiceCollection services)
     {
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IUrlService, UrlService>();
     }
 }
