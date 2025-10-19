@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using UrlShortener.Infrastructure.Repositories.Interfaces;
 using UrlShortener.Web.Services.Interfaces;
 
 namespace UrlShortener.Web.Controllers;

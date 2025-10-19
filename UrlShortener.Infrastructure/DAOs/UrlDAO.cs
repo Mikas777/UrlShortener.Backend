@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace UrlShortener.Infrastructure.DAOs;
+﻿namespace UrlShortener.Infrastructure.DAOs;
 
 public class UrlDAO
 {

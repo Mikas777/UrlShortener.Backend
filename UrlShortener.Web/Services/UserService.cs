@@ -1,6 +1,4 @@
 ﻿using UrlShortener.Domain.Models;
-using UrlShortener.Infrastructure.DAOs;
-using UrlShortener.Infrastructure.Repositories;
 using UrlShortener.Infrastructure.Repositories.Interfaces;
 using UrlShortener.Web.Mappers;
 using UrlShortener.Web.Services.Interfaces;

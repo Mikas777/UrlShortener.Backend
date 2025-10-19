@@ -1,9 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
-using UrlShortener.Infrastructure;
 using UrlShortener.Infrastructure.DAOs;
-using UrlShortener.Infrastructure.Repositories;
 using UrlShortener.Infrastructure.Repositories.Interfaces;
 using UrlShortener.Web.Services.Interfaces;
 

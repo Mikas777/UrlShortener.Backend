@@ -1,7 +1,6 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using UrlShortener.Infrastructure.Repositories.Interfaces;
 using UrlShortener.Web.DTOs;
 using UrlShortener.Web.Mappers;
 using UrlShortener.Web.Services.Interfaces;
