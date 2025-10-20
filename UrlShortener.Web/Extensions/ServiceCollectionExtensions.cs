@@ -34,11 +34,13 @@ public static class ServiceCollectionExtensions
     {
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IUrlRepository, UrlRepository>();
+        services.AddScoped<ISiteContentRepository, SiteContentRepository>();
     }
 
     public static void AddServices(this IServiceCollection services)
     {
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IUrlService, UrlService>();
+        services.AddScoped<ISiteContentService, SiteContentService>();
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using UrlShortener.Infrastructure;
@@ -11,9 +12,11 @@ using UrlShortener.Infrastructure;
 namespace UrlShortener.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251020081947_Add SiteContent entity")]
+    partial class AddSiteContententity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,13 +68,6 @@ namespace UrlShortener.Infrastructure.Migrations
                     b.HasKey("Key");
 
                     b.ToTable("SiteContents", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Key = "AboutPageContent",
-                            Value = "Our URL Shortener uses a robust algorithm to create short, unique identifiers for your long URLs. Here's how it works:\r\n\r\n1.  **Check for Existing URL:** When you submit a long URL, we first check if it has already been shortened in our system. If it exists, we return the existing short code to avoid duplicates.\r\n2.  **Generate Random Code:** If the URL is new, we generate a random string of a fixed length (e.g., 7 characters) using a Base62 alphabet (a-z, A-Z, 0-9). This provides a vast number of possible combinations. We use a cryptographically secure random number generator for better randomness.\r\n3.  **Check for Uniqueness:** Although highly unlikely with Base62 and sufficient length, we check if the newly generated short code already exists in our database.\r\n4.  **Retry if Collision:** In the rare event of a collision (the generated code is already in use), we repeat step 2 and 3 until a unique code is found.\r\n5.  **Store:** Once a unique short code is generated, we store the original long URL and its corresponding short code, along with creation details, in our database.\r\n6.  **Return:** The unique short code is then returned to you.\r\n\r\nWhen someone visits the short URL, our server looks up the short code in the database and permanently redirects (301) the user to the original long URL."
-                        });
                 });
 
             modelBuilder.Entity("UrlShortener.Infrastructure.DAOs.UrlDAO", b =>

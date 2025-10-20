@@ -9,6 +9,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<UserDAO> Users { get; set; } = null!;
     public DbSet<RoleDAO> Roles { get; set; } = null!;
     public DbSet<UrlDAO> Urls { get; set; } = null!;
+    public DbSet<SiteContentDAO> SiteContents { get; set; } = null!;
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
@@ -137,7 +138,33 @@ public class ApplicationDbContext : DbContext
                 CreatedById = Guid.Parse(adminUserId)
             });
         });
-        
+
+        modelBuilder.Entity<SiteContentDAO>(entity =>
+        {
+            entity.ToTable("SiteContents");
+            entity.HasKey(e => e.Key);
+
+            const string aboutContentKey = "AboutPageContent";
+            const string defaultAlgorithmDescription = """
+                                                       Our URL Shortener uses a robust algorithm to create short, unique identifiers for your long URLs. Here's how it works:
+
+                                                       1.  Check for Existing URL: When you submit a long URL, we first check if it has already been shortened in our system. If it exists, we return the existing short code to avoid duplicates.
+                                                       2.  Generate Random Code: If the URL is new, we generate a random string of a fixed length (e.g., 7 characters) using a Base62 alphabet (a-z, A-Z, 0-9). This provides a vast number of possible combinations. We use a cryptographically secure random number generator for better randomness.
+                                                       3.  Check for Uniqueness: Although highly unlikely with Base62 and sufficient length, we check if the newly generated short code already exists in our database.
+                                                       4.  Retry if Collision: In the rare event of a collision (the generated code is already in use), we repeat step 2 and 3 until a unique code is found.
+                                                       5.  Store: Once a unique short code is generated, we store the original long URL and its corresponding short code, along with creation details, in our database.
+                                                       6.  Return: The unique short code is then returned to you.
+
+                                                       When someone visits the short URL, our server looks up the short code in the database and permanently redirects (301) the user to the original long URL.
+                                                       """; // Using raw string literal for multi-line text
+
+            entity.HasData(new SiteContentDAO
+            {
+                Key = aboutContentKey,
+                Value = defaultAlgorithmDescription
+            });
+        });
+
         base.OnModelCreating(modelBuilder);
     }
 }
